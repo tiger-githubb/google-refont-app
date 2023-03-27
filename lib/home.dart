@@ -12,18 +12,34 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool _switchValue = false;
+  final List<String> _servicesIconName = [
+    'youtube',
+    'gmail',
+    'google-drive',
+    'google-meet',
+    'google-translate'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-          child: ListView(
-        children: [
-          _appBar(),
-          _googleIcon(),
-        ],
-      )),
+        child: ScrollConfiguration(
+          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
+            child: ListView(
+              children: [
+                _appBar(),
+                _googleIcon(),
+                _searchField(),
+                _voice(),
+                _services(),
+                _setting(),
+                _footer()
+              ],
+            ),
+        ),
+      ),
     );
   }
 
@@ -121,6 +137,208 @@ class _HomeState extends State<Home> {
     return Container(
       margin: EdgeInsets.only(top: 70.h),
       child: SvgPicture.asset('assets/vectors/google.svg'),
+    );
+  }
+
+  Widget _searchField() {
+    return Container(
+      margin: EdgeInsets.only(top: 40.h, left: 20.w, right: 20.w),
+      child: Material(
+        elevation: 10,
+        shadowColor: const Color(0xffBFC4DD).withOpacity(0.18),
+        borderRadius: BorderRadius.circular(50),
+        child: TextField(
+          style:
+              const TextStyle(height: 1.9, color: Colors.black, fontSize: 18),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(50),
+            ),
+            filled: true,
+            prefixIcon: Icon(
+              Icons.search_rounded,
+              size: 30.sp,
+              color: const Color(0xff4285F4),
+            ),
+            contentPadding: const EdgeInsets.all(15),
+            hintStyle: TextStyle(
+              color: Color(0xffA4ADC1),
+            ),
+            hintText: 'Recherche Google',
+            fillColor: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _voice() {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 30.h),
+          height: 130.w,
+          width: 130.w,
+          padding: const EdgeInsets.all(13),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Color(0xffEBF3FF))),
+          child: Container(
+            padding: const EdgeInsets.all(13),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Color(0xffEBF3FF))),
+            child: Container(
+              padding: const EdgeInsets.all(13),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Color(0xffEBF3FF))),
+              child: Center(
+                child: SvgPicture.asset('assets/vectors/voice-recorder.svg'),
+              ),
+            ),
+          ),
+        ),
+        const Text(
+          "Ton assistant vocal ...",
+          style: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w300, fontSize: 20),
+        ),
+      ],
+    );
+  }
+
+  Widget _services() {
+    return SizedBox(
+      height: 110.h,
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => SizedBox(
+          width: 10.w,
+        ),
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 40.h),
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+              height: 60.w,
+              width: 60.w,
+              child: Center(
+                child: SvgPicture.asset(
+                    'assets/vectors/' + _servicesIconName[index] + '.svg'),
+              ),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffE3E8EF),
+                    blurRadius: 50, // has the effect of softening the shadow
+                    offset: Offset(
+                      0.0, // horizontal, move right 10
+                      2.0, // vertical, move down 10
+                    ),
+                  )
+                ],
+              ));
+        },
+        itemCount: _servicesIconName.length,
+      ),
+    );
+  }
+
+  Widget _setting() {
+    return Container(
+      margin: EdgeInsets.only(left: 40.w, right: 40.w, top: 60.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.info,
+            size: 30.sp,
+          ),
+          SizedBox(
+            width: 20.w,
+          ),
+          Icon(
+            Icons.settings,
+            size: 30.sp,
+          ),
+          SizedBox(
+            width: 20.w,
+          ),
+          Container(
+            width: 170.w,
+            height: 55.h,
+            decoration: BoxDecoration(
+                color: const Color(0xffE3E8EF),
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xffE3E8EF),
+                    blurRadius: 50, // has the effect of softening the shadow
+                    offset: Offset(
+                      0.0, // horizontal, move right 10
+                      2.0, // vertical, move down 10
+                    ),
+                  )
+                ]),
+            child: Padding(
+              padding: EdgeInsets.only(right: 15.w, left: 15.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'English',
+                    style: TextStyle(
+                        color: const Color(0xff596A91), fontSize: 13.sp),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 35.sp,
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _footer() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: 50.h,
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 40.h),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Privacy',
+                style:
+                    TextStyle(color: const Color(0xff596A91), fontSize: 14.sp),
+              ),
+              Text(
+                'Conditions',
+                style:
+                    TextStyle(color: const Color(0xff596A91), fontSize: 14.sp),
+              ),
+              Text(
+                'Preference',
+                style:
+                    TextStyle(color: const Color(0xff596A91), fontSize: 14.sp),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
