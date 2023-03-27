@@ -78,7 +78,9 @@ class _HomeState extends State < Home > {
         activeIcon: SizedBox(
           width: 8. w,
           child: SvgPicture.asset('assets/vectors/sunny.svg' )
+          
         ),
+        activeColor: const Color.fromARGB(255, 228, 180, 22),
         onToggle: (val) {
           themeProvider.darkTheme = val;
         },
@@ -216,9 +218,6 @@ class _HomeState extends State < Home > {
             return Container(
               height: 60. w,
               width: 60. w,
-              child: Center(
-                child: SvgPicture.asset('assets/vectors/' + _servicesIconName[index] + '.svg'),
-              ),
               decoration: !themeProvider.darkTheme ? const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
@@ -235,6 +234,10 @@ class _HomeState extends State < Home > {
               ) : const BoxDecoration(
                 color: Color(0xff202733),
                 shape: BoxShape.circle,
+              ),
+              child: Center(
+                // ignore: prefer_interpolation_to_compose_strings
+                child: SvgPicture.asset('assets/vectors/' + _servicesIconName[index] + '.svg'),
               )
             );
           },

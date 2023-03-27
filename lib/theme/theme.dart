@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 final darkTheme = ThemeData(
   primaryColor: const Color(0xff161D29),
-  backgroundColor: const Color(0xff161D29), 
+  // backgroundColor: const Color(0xff161D29), 
   scaffoldBackgroundColor: const Color(0xff161D29),
   focusColor: const Color(0xff202733), 
   iconTheme: const IconThemeData(
@@ -34,7 +34,7 @@ final darkTheme = ThemeData(
 final lightTheme = ThemeData(
   primarySwatch: Colors.grey,
   primaryColor: Colors.white,
-  backgroundColor: const Color(0xFFE5E5E5),
+  // backgroundColor: const Color(0xFFE5E5E5),
     iconTheme: const IconThemeData(
     color: Color(0xff596A91)
   ), 
